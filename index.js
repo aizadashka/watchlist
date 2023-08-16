@@ -1,10 +1,7 @@
 const filmsContainer = document.getElementById('films-container')
-const watchlistFilmsContainer = document.getElementById('watchlist-films-container')
 const input = document.getElementById('search-input')
-const defaultStart = document.getElementById('default')
-const watchlistDefaultStart = document.getElementById('watchlist-default')
-const defaultNoFilm = document.getElementById('default-no-film')
-const defaultLoading = document.getElementById('default-loading')
+const watchlistFilmsContainer = document.getElementById('watchlist-films-container')
+
 let filmIDs = []
 
 let localStorageWatchList = JSON.parse(localStorage.getItem('watchlist')) || []
@@ -15,20 +12,13 @@ document.addEventListener('click', (e) => {
     if (e.target.id === 'search-btn') {
         e.preventDefault()
         if (input.value) {
-            defaultLoading.classList.remove('hidden')
-            defaultStart.classList.add('hidden')
+            renderLoadingPageCover()
             searchFilm(input.value)
             input.value = ''
         } else {
-            defaultNoFilm.classList.remove('hidden')
-            defaultStart.classList.add('hidden')
+            renderNoFilmPageCover()
         }
     }
-    else if (e.target.id === 'watchlist-link') {
-        getWatchlistFilmsHTML()
-        console.log('watchlist loaded')
-    }
-
     else if (e.target.dataset.add) {
         const filmID = e.target.dataset.add
         localStorageWatchList.push(filmID)
@@ -46,7 +36,7 @@ document.addEventListener('click', (e) => {
 
 function searchFilm(value) {
     if (value) {
-        fetch(`https://www.omdbapi.com/?apikey=1f50d832&s=${value}`)
+        fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&s=${value}`)
             .then(res => res.json())
             .then(data => {
                 if (filmIDs.length > 0) {
@@ -64,25 +54,42 @@ function searchFilm(value) {
 
 function renderSearchPageCover() {
     filmsContainer.innerHTML = `
-        <div class="default" id="default">
+        <div class="default">
             <i class="fa-solid fa-film"></i>
             <p class="starting-text">Start exploring</p>
         </div>
-        <div class="default hidden" id="default-no-film">
+    `
+}
+
+function renderNoFilmPageCover() {
+    filmsContainer.innerHTML = `        
+        <div class="default">
             <p class="starting-text">Unable to find what you’re looking for. Please try another search.</p>
         </div>
-        <div class="default hidden" id="default-loading">
+    `
+}
+
+function renderLoadingPageCover() {
+    filmsContainer.innerHTML = `
+        <div class="default">
             <p class="starting-text">LOADING...</p>
         </div>
     `
 }
 
+function renderWatclistPageCover() {
+    watchlistFilmsContainer.innerHTML = `
+    <div class="watchlist-default"">
+        <p class="starting-text">Your watchlist is looking a little empty...</p>
+        <i class="fa-solid fa-plus"></i><a href='index.html'>Let's add some movies!</a>
+    </div>
+    `
+}
+
 function getFilmsHTML() {
     filmsContainer.innerHTML = ''
-    defaultLoading.classList.add('hidden')
-    defaultNoFilm.classList.add('hidden')
     for (let i = 0; i < filmIDs.length; i++) {
-        fetch(`https://www.omdbapi.com/?apikey=1f50d832&i=${filmIDs[i]}`)
+        fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&i=${filmIDs[i]}`)
             .then(res => res.json())
             .then(data => {
                 const {Title, imdbID, Poster, imdbRating, Runtime, Genre, Type, Plot} = data
@@ -116,39 +123,43 @@ function getFilmsHTML() {
 
 
 function getWatchlistFilmsHTML() {
-    watchlistFilmsContainer.innerHTML = ''
-    watchlistDefaultStart.classList.add('hidden')
-    for (let i = 0; i < localStorageWatchList.length; i++) {
-        fetch(`https://www.omdbapi.com/?apikey=1f50d832&i=${localStorageWatchList[i]}`)
-            .then(res => res.json())
-            .then(data => {
-                const {Title, imdbID, Poster, imdbRating, Runtime, Genre, Type, Plot} = data
-                let filmHTML = `
-                    <div class="film">
-                        <img src=${Poster}>
-                        <div>
-                            <div class="film-title">
-                                <h3>${Title}</h3>
-                                <i class="fa-solid fa-star"></i>
-                                <p>${imdbRating}</p>
-                            </div>
-                            <div class="film-genre">
-                                <span>${Runtime}</span>
-                                <span>${Genre}</span>
-                                <div id=${imdbID}>
-                                    <span class='watchlist' data-remove=${imdbID}>
-                                        <i class="fa-solid fa-minus" data-remove=${imdbID}></i>
-                                    Watchlist</span>
+    if (localStorageWatchList.length > 0) {
+        watchlistFilmsContainer.innerHTML = ''
+        for (let i = 0; i < localStorageWatchList.length; i++) {
+            fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&i=${localStorageWatchList[i]}`)
+                .then(res => res.json())
+                .then(data => {
+                    const {Title, imdbID, Poster, imdbRating, Runtime, Genre, Type, Plot} = data
+                    let filmHTML = `
+                        <div class="film">
+                            <img src=${Poster}>
+                            <div>
+                                <div class="film-title">
+                                    <h3>${Title}</h3>
+                                    <i class="fa-solid fa-star"></i>
+                                    <p>${imdbRating}</p>
                                 </div>
+                                <div class="film-genre">
+                                    <span>${Runtime}</span>
+                                    <span>${Genre}</span>
+                                    <div id=${imdbID}>
+                                        <span class='watchlist' data-remove=${imdbID}>
+                                            <i class="fa-solid fa-minus" data-remove=${imdbID}></i>
+                                        Watchlist</span>
+                                    </div>
+                                </div>
+                                <p class="film-plot">${Plot}</p>
                             </div>
-                            <p class="film-plot">${Plot}</p>
                         </div>
-                    </div>
-                    <hr class="solid">
-                `
-                watchlistFilmsContainer.innerHTML += filmHTML
-            })
+                        <hr class="solid">
+                    `
+                    watchlistFilmsContainer.innerHTML += filmHTML
+                })
+        }
+    } else {
+        renderWatclistPageCover()
     }
+    
 }
 
 function renderPage() {

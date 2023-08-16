@@ -75,7 +75,7 @@ input {
 }
 
 .search-btn {
-    height: 2.25em;
+    height: 2.3em;
     width: 26%;
     border: none;
     margin: 0;
@@ -83,7 +83,10 @@ input {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     color: #374151;
-    
+}
+
+.search-btn:hover {
+    background: #FEC654;
 }
 
 .fa-magnifying-glass {
@@ -99,7 +102,7 @@ input:focus, button:focus {
 /* MOVIES CONTAINER - NO MOVIE*/
 .default, .watchlist-default {
     text-align: center;
-    padding: 0 5em;
+    padding: 5em 5em;
 }
 .fa-film {
     font-size: 8rem;
@@ -176,8 +179,6 @@ hr {
     color: #E5E7EB;
 }
 .watchlist {
-    background: none;
-    width: 3em;
     user-select: none;
 }
 
