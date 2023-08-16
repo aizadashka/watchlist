@@ -1,5 +1,6 @@
 import { filmsContainer, watchlistFilmsContainer, filmIDs, localStorageWatchList } from '/index.js'
 
+export { searchFilm, renderNoFilmPageCover, renderLoadingPageCover, getWatchlistFilmsHTML }
 
 function searchFilm(value) {
     if (value) {
@@ -129,4 +130,3 @@ function getWatchlistFilmsHTML() {
     
 }
 
-export { searchFilm, renderNoFilmPageCover, renderLoadingPageCover, getWatchlistFilmsHTML }

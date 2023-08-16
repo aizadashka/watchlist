@@ -1,4 +1,6 @@
-import { searchFilm, renderNoFilmPageCover, renderLoadingPageCover, getWatchlistFilmsHTML,} from '/utils.js'
+import { searchFilm, renderNoFilmPageCover, renderLoadingPageCover, getWatchlistFilmsHTML } from '/utils.js'
+
+export { filmsContainer, watchlistFilmsContainer, filmIDs, localStorageWatchList }
 
 const filmsContainer = document.getElementById('films-container')
 const input = document.getElementById('search-input')
@@ -29,7 +31,6 @@ document.addEventListener('click', (e) => {
     }
     else if (e.target.dataset.remove) {
         const filmID = e.target.dataset.remove
-        console.log(typeof filmID)
         localStorageWatchList = localStorageWatchList.filter(item => item !== filmID)
         localStorage.setItem('watchlist', JSON.stringify(localStorageWatchList))
         document.getElementById(filmID).innerHTML = `<span class='watchlist' data-add=${filmID}><i class="fa-solid fa-plus" data-add=${filmID}></i>Watchlist</span>`
@@ -47,5 +48,3 @@ function renderPage() {
             break
     }
 }
-
-export { filmsContainer, watchlistFilmsContainer, filmIDs, localStorageWatchList }

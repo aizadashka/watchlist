@@ -23,7 +23,7 @@ header {
     gap: 1em;
     align-items: center;
     padding: 2.625em;
-    background: url("img/header.png");
+    background: url("/img/header.png");
     background-size: cover;
     color: white;
 }
