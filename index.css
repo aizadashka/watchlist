@@ -39,7 +39,6 @@ a {
     text-decoration: none;
 }
 h1, a, button {
-    user-select: none;
     cursor: pointer;
 }
 
@@ -178,7 +177,7 @@ hr {
     width: 84%;
     color: #E5E7EB;
 }
-.watchlist {
+.watchlist, h1, a, button, .film img, i, .search-bar, .solid {
     user-select: none;
 }
 
