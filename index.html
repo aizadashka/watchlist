@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="index.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    </head>
+    <body id="search">
+        <header>
+            <h1>Find your film</h1>
+            <a href='watchlist.html' id='watchlist-link'>My Watchlist</a>
+        </header>
+        <main>
+            <section class='search-bar' id='search-bar'>
+                <i class='fa-solid fa-magnifying-glass'></i>
+                <input type='text' placeholder='Search for a movie' id='search-input'>
+                <button class='search-btn' id='search-btn'>Search</button>
+            </section>
+            <section class='films-container' id='films-container'>
+                <div class="default" id="default">
+                    <i class="fa-solid fa-film"></i>
+                    <p class="starting-text">Start exploring</p>
+                </div>
+                <div class="default hidden" id="default-no-film">
+                    <p class="starting-text">Unable to find what you’re looking for. Please try another search.</p>
+                </div>
+                <div class="default hidden" id="default-loading">
+                    <p class="starting-text">LOADING...</p>
+                </div>
+            </section>
+        </main>
+        <script src="index.js"></script>
+    </body>
+</html>
