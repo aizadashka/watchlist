@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     font-family: 'Inter', sans-serif;
     width: 100%;
-    max-width: 550px;
+    max-width: 750px;
     min-width: 320px;
     min-height: 158px;
 }
@@ -131,7 +131,7 @@ input:focus, button:focus {
 /* FILMs CONTAINER - SEARCH RESULT */
 
 .films-container, .watchlist-films-container {
-    padding: 3.9375em 0;
+    padding: 1.5em 0;
 }
 .film {
     width: 84%;

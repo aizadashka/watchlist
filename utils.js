@@ -2,9 +2,12 @@ import { filmsContainer, watchlistFilmsContainer, filmIDs, localStorageWatchList
 
 export { searchFilm, renderNoFilmPageCover, renderLoadingPageCover, getWatchlistFilmsHTML }
 
+const keyAPI = 'apikey=a8cf6ca9'
+const urlBase = 'https://www.omdbapi.com/?'
+
 function searchFilm(value) {
     if (value) {
-        fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&s=${value}`)
+        fetch(`${urlBase}${keyAPI}&s=${value}`)
             .then(res => res.json())
             .then(data => {
                 if (filmIDs.length > 0) {
@@ -57,7 +60,7 @@ function renderWatclistPageCover() {
 function getFilmsHTML() {
     filmsContainer.innerHTML = ''
     for (let i = 0; i < filmIDs.length; i++) {
-        fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&i=${filmIDs[i]}`)
+        fetch(`${urlBase}${keyAPI}&i=${filmIDs[i]}`)
             .then(res => res.json())
             .then(data => {
                 const {Title, imdbID, Poster, imdbRating, Runtime, Genre, Type, Plot} = data
@@ -94,7 +97,7 @@ function getWatchlistFilmsHTML() {
     if (localStorageWatchList.length > 0) {
         watchlistFilmsContainer.innerHTML = ''
         for (let i = 0; i < localStorageWatchList.length; i++) {
-            fetch(`https://www.omdbapi.com/?apikey=a8cf6ca9&i=${localStorageWatchList[i]}`)
+            fetch(`${urlBase}${keyAPI}&i=${localStorageWatchList[i]}`)
                 .then(res => res.json())
                 .then(data => {
                     const {Title, imdbID, Poster, imdbRating, Runtime, Genre, Type, Plot} = data
